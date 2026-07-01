@@ -1,0 +1,62 @@
+<form [formGroup]="editarForm" (ngSubmit)="guardar()">
+    <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Editar Cliente: {{cliente?.nombre}}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" formControlName="nombre" class="form-control">
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+                <label class="form-label">Apellido</label>
+                <input type="text" formControlName="apellido" class="form-control">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" formControlName="nro_telefono" class="form-control">
+        </div>
+
+        <div class="row">
+            <div class="col-8 mb-3">
+                <label class="form-label">Calle</label>
+                <input type="text" formControlName="calle" class="form-control">
+            </div>
+            <div class="col-4 mb-3">
+                <label class="form-label">Altura</label>
+                <input type="text" formControlName="altura" class="form-control">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Piso / Depto</label>
+            <input type="text" formControlName="piso_depto" class="form-control">
+        </div>
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <label class="form-label">Barrio</label>
+                <input type="text" formControlName="barrio" class="form-control">
+            </div>
+            <div class="col-6 mb-3">
+                <label class="form-label">Localidad</label>
+                <select name="localidad" id="localidad" formControlName="localidad" class="form-select">
+                    <option value="" disabled selected>Elija una opcion...</option>
+                    <option value="San salvador de Jujuy">San salvador de Jujuy</option>
+                    <option value="Palpala">Palpalá</option>
+                    <option value="Perico">Perico</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="editarForm.invalid">Guardar
+            Cambios</button>
+    </div>
+</form>

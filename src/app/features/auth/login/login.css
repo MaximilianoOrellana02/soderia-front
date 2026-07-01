@@ -1,0 +1,53 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background-attachment: fixed;
+}
+
+.card {
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+    padding: 10px;
+}
+
+h3 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.form-control {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+}
+
+.spinner-border {
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+}

@@ -1,0 +1,178 @@
+<div class="mb-3 text-end">
+    <div class="actions-bar">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="form-control" placeholder="Buscar cliente..." (input)="buscarCliente($event)">
+        </div>
+        <button type="button" class="btn btn-add" (click)="agregarCliente()">
+            <i class="bi bi-person-plus-fill"></i>
+            <span class="d-none d-md-inline ms-2">Nuevo</span>
+        </button>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Detalles</th>
+                <th scope="col">Envases actuales</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (c of clientesFiltrados(); track c.id) {
+            <tr>
+                <th scope="row">{{c.nombre}} {{c.apellido}}</th>
+                <td>
+                    @if(c.nro_telefono){
+                    {{c.nro_telefono}}
+                    } @else {
+                    No tiene telefono
+                    }
+                </td>
+                <td>
+                    <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalDetalleCliente"
+                        (click)="verDetalle(c)">Info</button>
+                </td>
+                <td>
+                    @if (!c.productos || c.productos.length === 0) {
+                    <span class="text-muted">Sin envases</span>
+                    } @else {
+                    <details>
+                        <summary style="cursor: pointer; font-weight: bold; color: #0d6efd;">
+                            Ver detalle
+                        </summary>
+                        <ul class="mb-0 ps-3 mt-1" style="font-size: 0.9em;">
+                            @for (p of c.productos; track p.id) {
+                            @if (p.cantidad > 0) {
+                            <li>{{p.tipoProducto}}: <strong>{{p.cantidad}}</strong></li>
+                            }
+                            }
+                        </ul>
+                    </details>
+                    }
+                </td>
+                <td class="align-middle">
+                    <div class="d-flex flex-column flex-md-row gap-1">
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalGestionCliente" (click)="prepararEdicion(c)">
+                            <i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm btn-danger" (click)="eliminarCliente(c.id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modalDetalleCliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">Ficha del Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                @if(clienteADetallar) {
+                <div class="card border-0">
+                    <div class="card-body p-0">
+                        <h4 class="card-title text-primary mb-1">
+                            {{clienteADetallar.nombre}} {{clienteADetallar.apellido}}
+                        </h4>
+                        <p class="text-muted mb-3">
+                            <i class="bi bi-telephone"></i> {{clienteADetallar.nro_telefono || 'Sin telefono
+                            registrado'}}
+                        </p>
+                        <h6 class="border-bottom pb-2">Direccion de Entregas</h6>
+
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item px-0"><strong>Calle:</strong> {{clienteADetallar.calle}}
+                                {{clienteADetallar.altura}}</li>
+                            @if(clienteADetallar.piso_depto) {
+                            <li class="list-group-item px-0"><strong>Piso/Depto:</strong> {{ clienteADetallar.piso_depto
+                                }}</li>
+                            }
+                            @if(clienteADetallar.barrio) {
+                            <li class="list-group-item px-0"><strong>Barrio:</strong> {{ clienteADetallar.barrio }}</li>
+                            }
+                            @if(clienteADetallar.localidad) {
+                            <li class="list-group-item px-0"><strong>Localidad:</strong> {{ clienteADetallar.localidad
+                                }}</li>
+                            }
+                            <li class="list-group-item px-0"><strong>Fecha de registro :</strong> {{
+                                clienteADetallar.createdAt
+                                }}</li>
+
+                            <h6 class="border-bottom pb-2">Stock de Envases Asignados</h6>
+                            <ul class="list-group list-group-flush">
+                                @for (prod of clienteADetallar.productos; track prod.id) {
+                                @if (prod.cantidad > 0) {
+                                <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                                    {{prod.tipoProducto}}
+                                    <span class="badge bg-secondary rounded-pill">{{prod.cantidad}}</span>
+                                </li>
+                                }
+                                } @empty {
+                                <li class="list-group-item px-0 text-muted">Este cliente no tiene envases asignados
+                                    actualmente.</li>
+                                }
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cerrar Ficha</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalGestionCliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Gestionar: {{clienteAEditar?.nombre}}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <p>¿Qué desea modificar?</p>
+                <div class="d-grid gap-3">
+                    <button class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#modalEditarDatos">
+                        <i class="bi bi-person-gear"></i> Editar Datos Personales
+                    </button>
+                    <button class="btn btn-outline-success btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#modalEditarEnvases">
+                        <i class="bi bi-box-seam"></i> Editar Envases (Stock)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditarDatos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <app-editar-datos [cliente]="clienteAEditar" (cambiosGuerdados)="obtenerClientes()" />
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditarEnvases" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <app-editar-productos [cliente]="clienteAEditar" />
+        </div>
+    </div>
+</div>

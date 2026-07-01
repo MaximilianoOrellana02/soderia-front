@@ -1,0 +1,105 @@
+<div class="container mt-4">
+    <div class="row align-items-center mb-4">
+        <div class="col">
+            <h3 class="m-0">Registrar Nuevo Cliente</h3>
+        </div>
+        <div class="col-auto">
+            <button routerLink="/" class="btn btn-lg btn-danger" title="Cancelar">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+    <hr>
+    <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()">
+
+        <div formGroupName="datos" class="card mb-4 p-3 shadow-sm">
+            <h5>Datos Personales y Domicilio</h5>
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre *</label>
+                    <input type="text" class="form-control" formControlName="nombre">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Apellido *</label>
+                    <input type="text" class="form-control" formControlName="apellido">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" formControlName="nro_telefono">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Calle *</label>
+                    <input type="text" class="form-control" formControlName="calle">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Altura *</label>
+                    <input type="text" class="form-control" formControlName="altura">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Piso/Depto</label>
+                    <input type="text" class="form-control" formControlName="piso_depto">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Barrio</label>
+                    <input type="text" class="form-control" formControlName="barrio">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Localidad</label>
+                    <select name="localidad" id="localidad" class="form-select">
+                        <option value="" disabled selected>Elija un opcion...</option>
+                        <option value="San salvador de Jujuy">San salvador de Jujuy</option>
+                        <option value="Palpala">Palpala</option>
+                        <option value="Perico">Perico</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div formGroupName="envases" class="card mb-4 p-3 shadow-sm">
+            <h5>Stock de Envases Iniciales</h5>
+            <p class="text-muted small">Deja en 0 los envases que no correspondan.</p>
+
+            <div class="row g-3 mt-1">
+                <div class="col-md-3">
+                    <label class="form-label">Agua 20L</label>
+                    <input type="number" min="0" class="form-control" formControlName="agua20L">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Agua 12L</label>
+                    <input type="number" min="0" class="form-control" formControlName="agua12L">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Soda 1.5L</label>
+                    <input type="number" min="0" class="form-control" formControlName="soda15L">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Soda 1.25L</label>
+                    <input type="number" min="0" class="form-control" formControlName="soda125L">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Soda 1L</label>
+                    <input type="number" min="0" class="form-control" formControlName="soda1L">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Soda 650cc</label>
+                    <input type="number" min="0" class="form-control" formControlName="soda650cc">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label text-primary">Disp. Frío/Calor</label>
+                    <input type="number" min="0" class="form-control" formControlName="dispenserFC">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label text-primary">Disp. Ambiental</label>
+                    <input type="number" min="0" class="form-control" formControlName="dispenserA">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end mb-5">
+            <button type="submit" class="btn btn-success btn-lg" [disabled]="clienteForm.invalid">
+                <span>Guardar Cliente y Envases</span>
+            </button>
+        </div>
+
+    </form>
+</div>

@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+.toast-container .ngx-toastr {
+    border-radius: 20px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    font-weight: 500;
+
+}
+
+.toast-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.toast-message {
+    font-size: 14px;
+}
+
+body {
+    padding-top: 70px;
+    /* Ajusta este valor según la altura de tu navbar */
+}

@@ -1,0 +1,35 @@
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <h3 class="text-center text-primary mb-4">Acceso al Sistema</h3>
+
+                    <form [formGroup]="loginForm" (ngSubmit)="ingresar()">
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label text-muted">Usuario</label>
+                            <input type="text" id="username" class="form-control" formControlName="username"
+                                placeholder="Ej: admin">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label text-muted">Contraseña</label>
+                            <input type="password" id="password" class="form-control" formControlName="password"
+                                placeholder="******">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="loginForm.invalid">
+                            <span>Ingresar</span>
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
